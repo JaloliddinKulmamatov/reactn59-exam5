@@ -123,9 +123,8 @@ a:hover {
 }
 
 #login {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -133,7 +132,6 @@ a:hover {
 }
 
 .login__left img {
-  max-width: 800px;
   width: 100%;
 }
 
@@ -218,5 +216,10 @@ form .login {
   nav {
     display: grid;
     grid-template-columns: repeat(3, 2fr);
+  }
+}
+@media (min-width: 800px) {
+  #login {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

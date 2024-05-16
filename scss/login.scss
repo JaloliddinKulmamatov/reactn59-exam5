@@ -122,14 +122,14 @@ a {
 }
 
 #login {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
     align-items: center;
     gap: 100px;
 }
 
 .login__left {
     img {
-        max-width: 800px;
             width: 100%;
     }
 }
@@ -216,5 +216,12 @@ form {
     nav {
         display: grid;
         grid-template-columns: repeat(3, 2fr);
+    }
+}
+
+
+@media (min-width:800px) {
+    #login {
+       grid-template-columns: repeat(2,1fr);
     }
 }

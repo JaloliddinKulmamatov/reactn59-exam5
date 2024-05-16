@@ -1,42 +1,54 @@
-
+document.addEventListener("DOMContentLoaded", () => {
     const usernameInput = document.getElementsByName("username")[0];
     const passwordInput = document.getElementsByName("password")[0];
     const form = document.querySelector("form");
-    const loginButton = document.querySelector("button[type='submit']")
+    const loginButton = document.querySelector("button[type='submit']");
+    const loading = document.querySelector(".loading");
     let username, password;
+
     init();
 
-    function init() {
+    async function init() {
         loginButton.disabled = true;
+        loading.style.display = "block"; 
+
+        try {
+            const products = await login(); 
+            redirect(products);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            loading.style.display = "none"; 
+        }
 
         redirect();
-
-        usernameInput.oninput = function (event) {
-            username = event.target.value.trim();
-            toggleButton()
-        }
-
-        passwordInput.oninput = function (event) {
-            password = event.target.value.trim();
-            toggleButton()
-        }
-
-        form.onsubmit = async function (event) {
-            event.preventDefault();
-            console.log(username.length);
-
-            const result = await login();
-            saveToken(result.token);
-            redirect();
-        }
     }
 
-    function toggleButton() {
-        if (username && password) {
-            loginButton.disabled = false;
-        } else {
-            loginButton.disabled = true;
+    usernameInput.oninput = function(event) {
+        username = event.target.value.trim();
+        toggleButton();
+    };
+
+    passwordInput.oninput = function(event) {
+        password = event.target.value.trim();
+        toggleButton();
+    };
+
+    form.onsubmit = async function(event) {
+        event.preventDefault();
+
+        try {
+            const result = await login();
+            saveToken(result.token);
+            resetInputValues();
+            redirect();
+        } catch (err) {
+            console.error(err);
         }
+    };
+
+    function toggleButton() {
+        loginButton.disabled = !(username && password);
     }
 
     async function login() {
@@ -49,9 +61,13 @@
             headers: {
                 "Content-Type": "application/json"
             }
-        })
-        const result = await response.json();
+        });
 
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+
+        const result = await response.json();
         return result;
     }
 
@@ -63,11 +79,14 @@
         const token = localStorage.getItem("token");
 
         if (token) {
-            window.location.href = "http://127.0.0.1:5500/index.html"
+            window.location.href = "http://127.0.0.1:5500/index.html";
         }
     }
 
     function resetInputValues() {
+        usernameInput.value = "";
+        passwordInput.value = "";
         username = "";
         password = "";
     }
+});

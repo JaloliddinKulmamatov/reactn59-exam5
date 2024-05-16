@@ -3,16 +3,7 @@ const loading = document.querySelector(".loading");
 
 init();
 
-async function fetchData(api) {
-    let data = await fetch(api)
-    data 
-    .json()
-    .then(res => createCard(res.products))
-    .catch(err => console.log(err))
-    .finally(() => {
-        loading.style.display = "none"
-    })
-}
+
 
 async function init() {
   checkToken();

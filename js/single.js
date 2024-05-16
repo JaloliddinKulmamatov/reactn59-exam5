@@ -9,7 +9,7 @@ const loading = document.querySelector(".loading");
       const product = await fetchProduct(productId);
       console.log(product)
 
-      renderProduct(product) // {}
+      renderProduct(product)
     }
 
     function getId() {
