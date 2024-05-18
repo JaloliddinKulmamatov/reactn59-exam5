@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const usernameInput = document.getElementsByName("username")[0];
     const passwordInput = document.getElementsByName("password")[0];
-    const form = document.querySelector("form");
+    const form = document.querySelector(".form");
     const loginButton = document.querySelector("button[type='submit']");
     const loading = document.querySelector(".loading");
     let username, password;
@@ -10,15 +10,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function init() {
         loginButton.disabled = true;
-        loading.style.display = "block"; 
+        loading.style.display = "block";
 
         try {
-            const products = await login(); 
-            redirect(products);
+            const products = await login();
+            render(products); // Предполагается, что у вас есть функция render
         } catch (err) {
             console.error(err);
         } finally {
-            loading.style.display = "none"; 
+            loading.style.display = "none";
         }
 
         redirect();
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (!response.ok) {
-            throw new Error("Network response was not ok");
+            throw new Error("Ошибка сети");
         }
 
         const result = await response.json();
