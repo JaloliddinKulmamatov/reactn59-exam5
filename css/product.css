@@ -162,8 +162,10 @@ nav .nav__form form input {
   background-color: #fff;
   border: 1px solid #393939;
   border-radius: 5px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
-.choose-size .typeof__size .focused__button {
+.choose-size .typeof__size button:hover {
   background-color: #DB4444;
   border: 1px solid #DB4444;
   color: #fff;
@@ -194,7 +196,7 @@ nav .nav__form form input {
   border: 3px solid transparent;
   padding: 10px;
 }
-.oreder__choose span .minus {
+.oreder__choose span button:hover {
   color: #fff;
   background-color: #DB4444;
   border: 3px solid #DB4444;
@@ -228,6 +230,10 @@ nav .nav__form form input {
           align-items: center;
   max-width: 40px;
   max-height: 40px;
+}
+
+.delivery div {
+  border: 1px solid;
 }
 
 @media (min-width: 580px) {
